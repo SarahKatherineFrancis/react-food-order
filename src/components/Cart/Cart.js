@@ -12,14 +12,16 @@ const Cart = (props) => {
     </ul>
   );
   return (
-    <Modal>
+    <Modal onCloseCart={props.onCloseCart}>
       {cartItems}
       <div className="total">
         <span>Total Amount</span>
         <span>35.62</span>
       </div>
       <div className="actions">
-        <button className="button__alt">Close</button>
+        <button className="button--alt" onClick={props.onCloseCart}>
+          Close
+        </button>
         <button className="button">Order</button>
       </div>
     </Modal>
