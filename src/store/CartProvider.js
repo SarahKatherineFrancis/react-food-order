@@ -12,7 +12,23 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
   // If the action type is 'ADD', update the cart state.
   if (action.type === "ADD") {
-    const updatedItems = state.items.concat(action.item); // Add the new item to the cart.
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+    let updatedItems;
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
+      };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.concat(action.item); // Add the new item to the cart.
+    }
+
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount; // Update the total cost.
     return {
@@ -47,7 +63,7 @@ const CartProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
-    removeItem: removeItemFromCartHandler, 
+    removeItem: removeItemFromCartHandler,
   };
 
   // Providing the cart context to child components using 'CartContext.Provider'.
