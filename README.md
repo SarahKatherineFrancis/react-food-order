@@ -11,7 +11,7 @@ Basic knowledge of React.js and JavaScript.
 To get started with the React Meals App, follow these steps:
 
 1. Clone the repository to your local machine:
-git clone https://github.com/your-username/react-meals-app.git
+git clone https://github.com/SarahKatherineFrancis/react-meals-app.git
 
 2. Navigate to the project directory:
 cd react-meals-app
