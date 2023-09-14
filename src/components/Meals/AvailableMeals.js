@@ -1,39 +1,48 @@
+import { useEffect, useState } from "react";
+
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
-// Define an array of dummy meal data.
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A German specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
-
 // Define the 'AvailableMeals' component.
 const AvailableMeals = () => {
-  // Map through the dummy meal data to create an array of 'MealItem' components.
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  // Define a state variable 'meals' and a function to update it 'setMeals' using useState.
+  const [meals, setMeals] = useState([]);
+
+  // Use the useEffect hook to fetch data when the component is mounted.
+  useEffect(() => {
+    // Define an asynchronous function 'fetchMeals'.
+    const fetchMeals = async () => {
+      // Send an HTTP GET request to fetch meal data from a Firebase database.
+      const response = await fetch(
+        "https://react-http-9b836-default-rtdb.firebaseio.com/meals.json"
+      );
+
+      // Parse the response data as JSON.
+      const responseData = await response.json();
+
+      // Create an empty array 'loadedMeals' to store the fetched meal data.
+      const loadedMeals = [];
+
+      // Loop through the response data and format it into objects with specific properties.
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+
+      // Update the 'meals' state with the loaded meal data.
+      setMeals(loadedMeals);
+    };
+    // Call the 'fetchMeals' function to initiate the data fetching.
+    fetchMeals();
+  }, []); // The empty dependency array ensures that this effect runs only once when the component is mounted.
+
+  // Map through the 'meals' state data to create an array of 'MealItem' components.
+  const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
       id={meal.id}
@@ -43,7 +52,7 @@ const AvailableMeals = () => {
     />
   ));
 
-  // Render the component.
+  // Render the 'AvailableMeals' component.
   return (
     <section className={classes.meals}>
       {/* Wrap the meal items in a 'Card' component for styling. */}
