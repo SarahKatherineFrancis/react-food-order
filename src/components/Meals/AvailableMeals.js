@@ -4,41 +4,53 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
-// Define the 'AvailableMeals' component.
+// The 'AvailableMeals' component displays a list of available meals fetched from a Firebase database.
+
 const AvailableMeals = () => {
   // Define a state variable 'meals' and a function to update it 'setMeals' using useState.
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // State to track loading status.
+  const [httpError, setHttpError] = useState(null);
 
   // Use the useEffect hook to fetch data when the component is mounted.
   useEffect(() => {
     // Define an asynchronous function 'fetchMeals'.
     const fetchMeals = async () => {
-      // Send an HTTP GET request to fetch meal data from a Firebase database.
-      const response = await fetch(
-        "https://react-http-9b836-default-rtdb.firebaseio.com/meals.json"
-      );
+      try {
+        // Send an HTTP GET request to fetch meal data from a Firebase database.
+        const response = await fetch(
+          "https://react-http-9b836-default-rtdb.firebaseio.com/meals.json"
+        );
 
-      // Parse the response data as JSON.
-      const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error("Failed to fetch data from the server.");
+        }
 
-      // Create an empty array 'loadedMeals' to store the fetched meal data.
-      const loadedMeals = [];
+        // Parse the response data as JSON.
+        const responseData = await response.json();
 
-      // Loop through the response data and format it into objects with specific properties.
-      for (const key in responseData) {
-        loadedMeals.push({
-          id: key,
-          name: responseData[key].name,
-          description: responseData[key].description,
-          price: responseData[key].price,
-        });
+        // Create an empty array 'loadedMeals' to store the fetched meal data.
+        const loadedMeals = [];
+
+        // Loop through the response data and format it into objects with specific properties.
+        for (const key in responseData) {
+          loadedMeals.push({
+            id: key,
+            name: responseData[key].name,
+            description: responseData[key].description,
+            price: responseData[key].price,
+          });
+        }
+
+        // Update the 'meals' state with the loaded meal data.
+        setMeals(loadedMeals);
+        setIsLoading(false); // Set loading to false when data is fetched.
+      } catch (error) {
+        setIsLoading(false);
+        setHttpError(error.message);
       }
-
-      // Update the 'meals' state with the loaded meal data.
-      setMeals(loadedMeals);
-      setIsLoading(false); // Set loading to false when data is fetched.
     };
+
     // Call the 'fetchMeals' function to initiate the data fetching.
     fetchMeals();
   }, []); // The empty dependency array ensures that this effect runs only once when the component is mounted.
@@ -48,6 +60,15 @@ const AvailableMeals = () => {
     return (
       <section className={classes.MealsLoading}>
         <p>Loading...</p>
+      </section>
+    );
+  }
+
+  // If there was an HTTP error while fetching data, display an error message.
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{httpError}</p>
       </section>
     );
   }
