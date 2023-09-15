@@ -1,11 +1,15 @@
-# React Meals App
-The React Meals App is a sample web application built using React.js. It allows users to view a list of available meals, add meals to their cart, and place orders. This README provides an overview of the project structure and components.
+# React Food Order
+This is a React component for a shopping cart that allows users to add and remove items, initiate the checkout process, and submit orders. Below is a detailed README for this code:
 
-## Prerequisites
-Before you begin, ensure you have met the following requirements:
-
-Node.js and npm (Node Package Manager) installed on your machine.
-Basic knowledge of React.js and JavaScript.
+## Introduction
+This React component represents a shopping cart that can be integrated into an e-commerce website. It provides the following features:
+<ul>
+<li>Displaying a list of items in the cart.</li>
+<li>Adding items to the cart.</li>
+<li>Removing items from the cart.</li>
+<li>Initiating the checkout process.</li>
+<li>Submitting an order.</li>
+</ul>
 
 ## Getting Started
 To get started with the React Meals App, follow these steps:
@@ -14,7 +18,7 @@ To get started with the React Meals App, follow these steps:
 git clone https://github.com/SarahKatherineFrancis/react-meals-app.git
 
 2. Navigate to the project directory:
-cd react-meals-app
+cd react-food-order
 
 3. Install the project dependencies:
 npm install
