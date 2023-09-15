@@ -34,32 +34,59 @@ store/: Manages global state using React's Context API.
 App.js: The main application component.
 index.js: The entry point of the application.
 
-## Components
-### 1. Modal Component
-The Modal component is responsible for displaying modal dialogs with a backdrop. It uses React portals to render outside the normal component hierarchy. The modal can display any content passed as props.children.
+## Component Overview
+### Cart
+The Cart component is the main shopping cart component that displays the items in the cart, handles adding and removing items, initiates the checkout process, and submits orders.
 
-### 2. MealsSummary Component
-The MealsSummary component displays a summary of the available meals, providing a brief description of the food options.
+### CartIcon
+The CartIcon component is a simple SVG icon representing a shopping cart. It can be used to display a cart icon in the header or navigation bar.
 
-### 3. AvailableMeals Component
-The AvailableMeals component lists the available meals that users can add to their cart. It utilizes dummy meal data and the MealItem component.
+### CartItem
+The CartItem component represents an item in the shopping cart. It displays the item's name, price, quantity, and provides buttons to remove and add items.
 
-### 4. MealItem Component
-The MealItem component represents an individual meal item. Users can add meals to their cart using this component.
+### Checkout
+The Checkout component allows users to enter their shipping information and submit an order. It handles form validation and order submission.
 
-### 5. MealItemForm Component
-The MealItemForm component is used within the MealItem component to handle user input for adding meals to the cart. It includes validation for the quantity of meals.
+### Header
+The Header component displays the application's header, including the title/logo and the shopping cart icon.
 
-### 6. Header and HeaderCartButton Components
-These components are part of the application's header and are responsible for displaying the app title and a cart icon that opens the shopping cart.
+### HeaderCartButton
+The HeaderCartButton component displays a button with a shopping cart icon and the number of items in the cart. It also provides a highlight animation when items are added to the cart.
 
-### 7. Cart and CartItem Components
-These components manage the shopping cart, including displaying the cart items, their quantity, and total price.
+### AvailableMeals
+The AvailableMeals component displays a list of available meals fetched from a Firebase database. It handles loading and error states while fetching data.
+
+### Meals
+The Meals component combines the MealsSummary and AvailableMeals components to display a summary of meals and the list of available meals.
+
+### MealsSummary
+The MealsSummary component displays a summary of the available meals, highlighting their quality and preparation.
+
+### MealItem
+The MealItem component represents an individual meal item that can be added to the cart. It displays the meal's name, description, and price.
+
+### MealItemForm
+The MealItemForm component provides a form for users to enter the quantity of a meal they want to add to the cart. It handles quantity validation and submission.
+
+### cart-context.js
+The cart-context.js file defines a React context for managing the shopping cart state and provides functions for adding, removing, and clearing cart items.
+
+### CartProvider
+The CartProvider component uses the cart context to manage the shopping cart state using a reducer. It provides cart-related data and functions to its child components.
 
 ## Usage
 The React Meals App serves as a sample application for learning and exploring React.js concepts, including state management, component composition, and use of hooks.
 
 Feel free to modify, expand, or integrate this code into your projects. You can also customize the styling by editing the CSS files in the src directory.
+
+## Dependencies
+This code relies on the following dependencies:
+<ul>
+<li>React (https://reactjs.org/)</li>
+<li>React Router (if used for routing)</li>
+<li> (if used for data storage)</li>
+<li>CSS (for styling, you can customize the CSS as needed)</li>
+</ul>
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
