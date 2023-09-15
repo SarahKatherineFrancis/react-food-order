@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import classes from "./Checkout.module.css";
 
-// Define a function to check if a string is empty (contains only whitespace).
+// Define a function to check if a string is empty.
 const isEmpty = (value) => value.trim() === "";
 
 // Define a function to check if a string has exactly 5 characters.
@@ -59,7 +59,13 @@ const Checkout = (props) => {
       return; // Don't submit if the form is not valid.
     }
 
-    // At this point, you can proceed with form submission, e.g., sending data to a server.
+    // Call the onConfirm function from props and pass the entered user data.
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      postalCode: enteredPostalCode,
+      city: enteredCity,
+    });
   };
 
   // Define CSS classes for input controls based on their validity.
