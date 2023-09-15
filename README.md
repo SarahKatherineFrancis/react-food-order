@@ -1,5 +1,5 @@
 # React Food Order
-This is a React component for a shopping cart that allows users to add and remove items, initiate the checkout process, and submit orders. Below is a detailed README for this code:
+This is a React app for a shopping cart that allows users to add and remove items, initiate the checkout process, and submit orders. Below is a detailed README for this code:
 
 ## Introduction
 This React component represents a shopping cart that can be integrated into an e-commerce website. It provides the following features:
